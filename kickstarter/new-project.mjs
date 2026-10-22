@@ -71,7 +71,7 @@ const replaceIn = (rel, pairs) => {
 };
 const portFiles = ["vite.config.ts", ".claude/launch.json", "scripts/verify-smoke.mjs", "scripts/capture.mjs", "CLAUDE.md", "HANDOFF.md", "README.md"];
 for (const f of portFiles) replaceIn(f, [[TEMPLATE_PORT, String(port)]]);
-for (const f of ["package.json", "index.html", ".claude/launch.json", "CLAUDE.md", "HANDOFF.md", "README.md", "PLAN.md", "BUILD-PROMPTS.md"])
+for (const f of ["package.json", "package-lock.json", "index.html", ".claude/launch.json", "CLAUDE.md", "HANDOFF.md", "README.md", "PLAN.md", "BUILD-PROMPTS.md"])
   replaceIn(f, [[TEMPLATE_NAME, name]]);
 
 if (args.viewport === "desktop") {
