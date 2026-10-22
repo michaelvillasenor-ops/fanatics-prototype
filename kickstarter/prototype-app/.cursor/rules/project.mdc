@@ -1,0 +1,9 @@
+---
+description: Project rules for this prototype (shared with Claude Code)
+alwaysApply: true
+---
+
+Read and follow `CLAUDE.md` at the repo root before any change. It is the single source of
+truth for rules, stack, gotchas, and verification. Also read `PLAN.md` and `HANDOFF.md` if
+present. Design-process skills (design-frame, design-build, design-feedback, design-ship) are
+installed in ~/.cursor/skills by the prototype-system-kit bootstrap.

@@ -1,0 +1,9 @@
+node_modules
+dist
+captures
+/reference
+.env
+.env.local
+*.local
+.DS_Store
+tsconfig.tsbuildinfo

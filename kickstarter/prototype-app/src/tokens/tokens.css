@@ -1,0 +1,196 @@
+/*
+ * Token bridge for Fanatics Markets (FMX), built on FUEL.
+ *
+ * Two layers:
+ *   1. --fuel-*  : FUEL variables under their own names (slashes → dashes),
+ *                  values read from the FMX Component Library on 2026-10-22
+ *                  via the Figma MCP (get_variable_defs). FUEL owns these;
+ *                  if Figma and this file disagree, Figma wins: re-read and update.
+ *   2. --color-*, --space-*, ... : the kit's semantic names, which components
+ *                  use. Each maps onto a FUEL variable, never a raw value.
+ *
+ * Components use ONLY layer 2 (or a --fuel-* variable when the kit has no
+ * matching role). Never hex, never raw px outside this file.
+ * Preview everything at ?page=tokens. See CUSTOMIZE.md §2 and systems/visual.md.
+ */
+
+:root {
+  /* ── FUEL space (FXDS Fundamentals ▸ Space) ───────────────────────────── */
+  --fuel-space-none: 0px;
+  --fuel-space-2: 2px;
+  --fuel-space-4: 4px;
+  --fuel-space-6: 6px;
+  --fuel-space-8: 8px;
+  --fuel-space-12: 12px;
+  --fuel-space-16: 16px;
+  --fuel-space-20: 20px;
+  --fuel-space-24: 24px;
+  --fuel-space-32: 32px;
+  --fuel-space-40: 40px;
+  --fuel-space-48: 48px;
+  --fuel-space-56: 56px;
+  --fuel-space-64: 64px;
+
+  /* Semantic spacing aliases */
+  --fuel-padding-medium: var(--fuel-space-12); /* Component/Padding/padding-medium */
+  --fuel-stack-gap-large: var(--fuel-space-16); /* Component/Stack/stack-gap-large */
+
+  /* ── FUEL radius ──────────────────────────────────────────────────────── */
+  --fuel-radius-none: 0px;
+  --fuel-radius-small: 4px;
+  --fuel-radius-medium: 8px;
+  --fuel-radius-medium-large: 12px;
+  --fuel-radius-large: 16px;
+  --fuel-radius-xlarge: 30px;
+  --fuel-radius-full: 999999px;
+
+  --fuel-border-width-default: 1px;
+
+  /* ── FUEL typography ──────────────────────────────────────────────────── */
+  --fuel-family-primary: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fuel-family-score: "Anton", "Impact", sans-serif;
+  --fuel-weight-regular: 400; /* style/regular */
+  --fuel-weight-strong: 600; /* style/strong (SemiBold) */
+
+  /* Text styles: size / line height. Regular and "- strong" variants share them. */
+  --fuel-body-xsmall-size: 10px; /* body/xSmall (P4) */
+  --fuel-body-xsmall-height: 14px;
+  --fuel-body-small-size: 12px; /* body/small (P3) */
+  --fuel-body-small-height: 16px;
+  --fuel-body-medium-size: 14px; /* body/medium (P2) */
+  --fuel-body-medium-height: 20px;
+  --fuel-title-medium-size: 16px; /* title/medium - strong */
+  --fuel-title-medium-height: 24px;
+  --fuel-title-large-size: 18px; /* title/large (P1) */
+  --fuel-title-large-height: 24px;
+  --fuel-marquee-large-size: 44px; /* marquee/large: Anton, scores and hero figures only */
+  --fuel-marquee-large-height: 44px;
+
+  /* ── Kit semantic layer: spacing (on the FUEL scale) ──────────────────── */
+  --space-1: var(--fuel-space-4);
+  --space-2: var(--fuel-space-8);
+  --space-3: var(--fuel-space-12);
+  --space-4: var(--fuel-space-16);
+  --space-5: var(--fuel-space-24);
+  --space-6: var(--fuel-space-32);
+  --space-7: var(--fuel-space-48);
+
+  --radius-sm: var(--fuel-radius-small);
+  --radius-md: var(--fuel-radius-medium);
+  --radius-lg: var(--fuel-radius-large);
+  --radius-pill: var(--fuel-radius-full);
+
+  --font-family: var(--fuel-family-primary);
+  --font-family-score: var(--fuel-family-score);
+  --font-size-caption: var(--fuel-body-small-size);
+  --font-size-body: var(--fuel-body-medium-size);
+  --font-size-body-lg: var(--fuel-title-medium-size);
+  --font-size-title: var(--fuel-title-large-size);
+  /* UNVERIFIED: no FUEL page-headline style found yet (largest Inter style seen is
+     title/large 18px). 24px is a stand-in on the space scale. Replace when sourced. */
+  --font-size-headline: 24px;
+  --font-weight-regular: var(--fuel-weight-regular);
+  --font-weight-bold: var(--fuel-weight-strong);
+  --line-height-tight: 1.333; /* 24/18, title/large */
+  --line-height-body: 1.429; /* 20/14, body/medium */
+
+  /* Touch target. FMX buttons render at 40px tall (Deposit Balance, Get FanCash),
+     but the kit's a11y floor stays at 44px. See systems/accessibility.md. */
+  --touch-target: 44px;
+
+  /* Motion: not yet sourced from FUEL. Kit defaults. */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 350ms;
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+}
+
+/* ── FUEL colour: dark mode (color.dark). FMX ships dark. ──────────────────── */
+:root,
+[data-theme="dark"] {
+  --fuel-background-base: #000000;
+  --fuel-background-surface-low: #000000;
+  --fuel-background-container: #1a1a1a;
+  --fuel-background-overlay: #ffffff26;
+  --fuel-neutral-950: #242424;
+
+  --fuel-text-primary: #f5f5f5;
+  --fuel-text-secondary: #ffffffbf; /* white 75% */
+  --fuel-text-tertiary: #ffffff80; /* white 50% */
+  --fuel-text-primary-inverse: #000000; /* Buttons page; Cards page reads #111111, see visual.md */
+  --fuel-text-positive: #48cb57;
+  --fuel-text-negative: #f85d51;
+  --fuel-text-warning: #dab01f;
+  --fuel-text-info: #5091f1; /* the accent / link blue */
+  --fuel-text-fancash: #7a5dff;
+
+  --fuel-icon-primary: #f5f5f5;
+  --fuel-icon-tertiary: #ffffff80;
+  --fuel-icon-warning: #e5bd35;
+
+  --fuel-fill-primary: #ffffff;
+  --fuel-fill-tertiary: #3c3c3c;
+  --fuel-fill-transparent: #ffffff1a;
+  --fuel-fill-transparent-inverse: #00000080;
+  --fuel-fill-negative: #e53c2e;
+  --fuel-fill-fancash: #5327dc;
+  --fuel-fill-info-container: #062451;
+  --fuel-fill-positive-container: #052d0a;
+
+  --fuel-border-weakest: #ffffff0d;
+  --fuel-border-weak: #ffffff26;
+  --fuel-border-medium: #ffffff40;
+  --fuel-border-strong: #f5f5f5;
+  --fuel-border-negative: #e53c2e;
+  --fuel-border-warning: #dab01f;
+
+  --fuel-brand-royal: #522cfe;
+  --fuel-brand-royal-25: #937bfe;
+
+  /* Kit semantic layer */
+  --color-bg: var(--fuel-background-base);
+  --color-surface: var(--fuel-background-container);
+  --color-surface-raised: var(--fuel-neutral-950);
+  --color-text: var(--fuel-text-primary);
+  --color-text-subdued: var(--fuel-text-secondary);
+  --color-text-tertiary: var(--fuel-text-tertiary);
+  --color-border: var(--fuel-border-weak);
+  --color-accent: var(--fuel-fill-primary); /* FMX primary CTA is a white fill */
+  --color-on-accent: var(--fuel-text-primary-inverse);
+  --color-link: var(--fuel-text-info);
+  --color-positive: var(--fuel-text-positive);
+  --color-negative: var(--fuel-text-negative);
+  --color-warning: var(--fuel-text-warning);
+  --color-fancash: var(--fuel-text-fancash);
+  --color-focus: var(--fuel-border-strong);
+}
+
+/* Light mode (color.light) exists in FUEL but has NOT been read yet. These are
+   kit placeholders, not FUEL values. Don't present light-theme work as on-brand
+   until this block is sourced from Figma. */
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f5;
+  --color-surface-raised: #e9e9ec;
+  --color-text: #111111;
+  --color-text-subdued: #5b5b66;
+  --color-text-tertiary: #8a8a94;
+  --color-border: #d4d4d8;
+  --color-accent: #111111;
+  --color-on-accent: #ffffff;
+  --color-link: #3366cc;
+  --color-positive: #1e8a2b;
+  --color-negative: #c62828;
+  --color-warning: #8a6d00;
+  --color-fancash: #5327dc;
+  --color-focus: #111111;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+}
